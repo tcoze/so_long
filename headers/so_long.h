@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcoze <tcoze@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: tcoze <tcoze@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 08:41:27 by tcoze             #+#    #+#             */
-/*   Updated: 2024/02/27 08:41:27 by tcoze            ###   ########.fr       */
+/*   Updated: 2024/03/12 19:29:04 by tcoze            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <X11/X.h>
+#include <fcntl.h>
+#include "../libft/libft.h"
 
 typedef struct s_data
 {
