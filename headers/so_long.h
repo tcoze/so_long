@@ -6,7 +6,7 @@
 /*   By: tcoze <tcoze@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 08:41:27 by tcoze             #+#    #+#             */
-/*   Updated: 2024/03/12 19:29:04 by tcoze            ###   ########.fr       */
+/*   Updated: 2024/03/12 21:37:32 by tcoze            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include <X11/X.h>
 #include <fcntl.h>
 #include "../libft/libft.h"
+#include "../libft/gnl/get_next_line.h"
 
 typedef struct s_data
 {

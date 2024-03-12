@@ -6,7 +6,7 @@
 /*   By: tcoze <tcoze@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 08:41:42 by tcoze             #+#    #+#             */
-/*   Updated: 2024/03/12 21:07:47 by tcoze            ###   ########.fr       */
+/*   Updated: 2024/03/12 21:36:49 by tcoze            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
 		line = get_next_line(fd);
 		i++;
 	}
-	//printf("i = %d\n", i);
+	printf("i = %d\n", i);
 	close(fd);
 	fd = open(argv[1], O_RDONLY);
 	//printf("test\n");
