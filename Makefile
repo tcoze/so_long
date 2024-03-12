@@ -1,6 +1,6 @@
 NAME = so_long
 CFLAGS = -Wall -Wextra #-Werror
-CPPFLAGS= -I libft/src -I minilibx-linux/ # -I : include 
+CPPFLAGS= -I libft/src -I minilibx-linux/ # -I : include
 CC = cc
 OBJ_PATH = obj/
 OBJS = $(addprefix $(OBJ_PATH), $(OBJ))
@@ -40,7 +40,7 @@ sanitize:
 debug:
 	make CFLAGS="-Wall -Wextra -Werror -g3"
 
-FORCE : 
+FORCE :
 
 $(LIBMLX) : FORCE
 	make -C minilibx-linux
