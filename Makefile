@@ -7,7 +7,9 @@ OBJS = $(addprefix $(OBJ_PATH), $(OBJ))
 SRC_PATH = src/
 
 SRC =	main.c \
-		fill_struct.c
+		fill_struct.c \
+		moove.c \
+		pre_parsing.c
 
 OBJ = $(SRC:.c=.o)
 

@@ -22,15 +22,21 @@
 #include "../libft/libft.h"
 #include "../libft/gnl/get_next_line.h"
 
+#define KEY_W 119
+#define KEY_A 97
+#define KEY_D 100
+#define KEY_S 115
+#define KEY_ESCAPE 65307
+
 typedef struct s_data
 {
-	void		*mlx_ptr;
-	void		*win_ptr;
-//	t_map		*map;
-}	t_data;
-
-typedef struct	s_picture
-{
+	void	*mlx_ptr;
+	void	*win_ptr;
+	char	**map;
+	int		pos_x;
+	int 	pos_y;
+	int 	pos_player_pic_x;
+	int		pos_player_pic_y;
 	int		height;
 	int		width;
 	char 	*player_path;
@@ -45,12 +51,16 @@ typedef struct	s_picture
 	void	*collectible;
 	char 	*ground_path;
 	void	*ground;
-}	t_picture;
+	int 	collectable;
+	int 	collect;
+}	t_data;
 
 int 	on_destroy(t_data *data);
 int 	on_keypress(int keysym, t_data *data);
-int 	file_to_image(t_picture *pics, t_data *data);
-void    store_textures(t_picture *pics);
-int		file_to_window(t_picture *pics, t_data *data);
+int 	file_to_image(t_data *data);
+void    store_textures(t_data *data);
+int		file_to_window(t_data *data);
+int 	player_moove(int key, t_data *data);
+int		count_collec(t_data *data);
 
 #endif

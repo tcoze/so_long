@@ -30,27 +30,24 @@ int on_keypress(int keysym, t_data *data)
 int main(int argc, char *argv[])
 {
 	t_data data;
-	t_picture pics;
 	int	fd;
-	char **map;
 	char *line;
 	int	i;
 	int	y;
 
 	i = 0;
 	y = 0;
-	map = NULL;
+	data.map = NULL;
 	if (argc != 2)
 		return (-1);
-	/*data.mlx_ptr = mlx_init();
+	data.mlx_ptr = mlx_init();
 	if (!data.mlx_ptr)
 		return (1);
-	data.win_ptr = mlx_new_window(data.mlx_ptr, 1920, 1080, "Walk with ego");
+	data.win_ptr = mlx_new_window(data.mlx_ptr, 756, 756, "Walk with ego");
 	if (!data.win_ptr)
 		return (free(data.mlx_ptr), 1);
-	store_textures(&pics);
-	file_to_image(&pics, &data);
-	file_to_window (&pics, &data);*/
+	store_textures(&data);
+	file_to_image(&data);
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		return (-1);
@@ -61,26 +58,24 @@ int main(int argc, char *argv[])
 		line = get_next_line(fd);
 		i++;
 	}
-	printf("i = %d\n", i);
 	close(fd);
 	fd = open(argv[1], O_RDONLY);
-	//printf("test\n");
-	map = malloc(sizeof(char *) * (1 + i));
-	map[i] = NULL;
-	//printf("test2\n");
+	data.map = malloc(sizeof(char *) * (1 + i));
+	data.map[i] = NULL;
 	while (y < i)
 	{
-		map[y] = get_next_line(fd);
-		printf("%s", map[y]);
+		data.map[y] = get_next_line(fd);
 		y++;
 	}
-	// Register key release hook
-	//mlx_hook(data.win_ptr, KeyRelease, KeyReleaseMask, &on_keypress, &data);
+	data.collec = 0;
+	count_collec(&data);
+	file_to_window (&data);
+	mlx_key_hook(data.win_ptr, player_moove, &data);
 
 	// Register destroy hook
 	//mlx_hook(data.win_ptr, DestroyNotify, StructureNotifyMask, &on_destroy, &data);
 
 	// Loop over the MLX pointer
-	// mlx_loop(data.mlx_ptr);
+	mlx_loop(data.mlx_ptr);
 	return (0);
 }
