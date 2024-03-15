@@ -1,5 +1,5 @@
 NAME = so_long
-CFLAGS = -Wall -Wextra #-Werror
+CFLAGS = -I headers -Wall -Wextra #-Werror
 CPPFLAGS= -I libft/src -I minilibx-linux/ # -I : include
 CC = cc
 OBJ_PATH = obj/
@@ -9,7 +9,9 @@ SRC_PATH = src/
 SRC =	main.c \
 		fill_struct.c \
 		moove.c \
-		pre_parsing.c
+		pre_parsing.c \
+		free.c \
+		control_map.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -30,7 +32,7 @@ $(OBJ_PATH):
 re: fclean all
 
 fclean: clean
-	rm -f $(NAME)
+	rm -rf obj
 	make fclean -C libft #appel le make de libft
 
 clean :

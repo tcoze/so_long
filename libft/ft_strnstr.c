@@ -19,7 +19,7 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 
 	i = 0;
 	if (ft_strlen(big) < ft_strlen(little))
-		return (0);
+		return (NULL);
 	if (!little[0])
 		return ((char *)big);
 	while (big[i])
@@ -33,5 +33,5 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 		}
 		i++;
 	}
-	return (0);
+	return (NULL);
 }

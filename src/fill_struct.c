@@ -97,8 +97,6 @@ int	file_to_window(t_data *data)
 			}
 			n++;
 		}
-
-		printf("\n");
 		i++;
 		x = x + 126;
 		y = 0;

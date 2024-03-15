@@ -33,6 +33,7 @@ typedef struct s_data
 	void	*mlx_ptr;
 	void	*win_ptr;
 	char	**map;
+	char	**ctrl_map;
 	int		pos_x;
 	int 	pos_y;
 	int 	pos_player_pic_x;
@@ -53,6 +54,8 @@ typedef struct s_data
 	void	*ground;
 	int 	collectable;
 	int 	collect;
+	int 	y_max;
+	int 	x_max;
 }	t_data;
 
 int 	on_destroy(t_data *data);
@@ -62,5 +65,10 @@ void    store_textures(t_data *data);
 int		file_to_window(t_data *data);
 int 	player_moove(int key, t_data *data);
 int		count_collec(t_data *data);
+int		ft_check_argc(int argc, char **argv, t_data *data);
+void	ft_freeall(char **out, int j);
+int		ft_count_path(char **path);
+int		control_map(t_data *data);
+void	ft_freedouble(char **map1, char **map2);
 
 #endif

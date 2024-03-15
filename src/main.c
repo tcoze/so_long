@@ -12,62 +12,27 @@
 
 #include "../headers/so_long.h"
 
-int on_destroy(t_data *data)
-{
-	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-	mlx_destroy_display(data->mlx_ptr);
-	free(data->mlx_ptr);
-	exit(0);
-}
-
-int on_keypress(int keysym, t_data *data)
-{
-	(void)data;
-	printf("Pressed key: %d\\n", keysym);
-	return (0);
-}
-
 int main(int argc, char *argv[])
 {
 	t_data data;
-	int	fd;
-	char *line;
-	int	i;
-	int	y;
 
-	i = 0;
-	y = 0;
 	data.map = NULL;
-	if (argc != 2)
+	data.ctrl_map = NULL;
+	if (ft_check_argc(argc, argv, &data) == -1)
 		return (-1);
+	if (control_map(&data) == -1)
+		return (-1);
+	data.pos_player_pic_x = 0;
+	data.pos_player_pic_y = 0;
 	data.mlx_ptr = mlx_init();
 	if (!data.mlx_ptr)
 		return (1);
-	data.win_ptr = mlx_new_window(data.mlx_ptr, 756, 756, "Walk with ego");
+	data.win_ptr = mlx_new_window(data.mlx_ptr, (data.y_max + 1) * 1260, (data.x_max + 1) * 1260, "Walk with ego");
 	if (!data.win_ptr)
 		return (free(data.mlx_ptr), 1);
 	store_textures(&data);
 	file_to_image(&data);
-	fd = open(argv[1], O_RDONLY);
-	if (fd == -1)
-		return (-1);
-	line = get_next_line(fd);
-	while (line)
-	{
-		free(line);
-		line = get_next_line(fd);
-		i++;
-	}
-	close(fd);
-	fd = open(argv[1], O_RDONLY);
-	data.map = malloc(sizeof(char *) * (1 + i));
-	data.map[i] = NULL;
-	while (y < i)
-	{
-		data.map[y] = get_next_line(fd);
-		y++;
-	}
-	data.collec = 0;
+	data.collect = 0;
 	count_collec(&data);
 	file_to_window (&data);
 	mlx_key_hook(data.win_ptr, player_moove, &data);
