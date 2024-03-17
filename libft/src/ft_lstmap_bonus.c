@@ -1,0 +1,41 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcoze <tcoze@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/14 20:34:58 by tcoze             #+#    #+#             */
+/*   Updated: 2024/03/17 18:13:16 by tcoze            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+{
+	t_list	*new;
+	t_list	*templst;
+	void	*temp;
+
+	new = NULL;
+	while (lst)
+	{
+		temp = f(lst->content);
+		if (!temp)
+		{
+			ft_lstclear(&new, del);
+			return (NULL);
+		}
+		templst = ft_lstnew(temp);
+		if (!templst)
+		{
+			del(temp);
+			ft_lstclear(&new, del);
+			return (NULL);
+		}
+		lst = lst->next;
+		ft_lstadd_back(&new, templst);
+	}
+	return (new);
+}

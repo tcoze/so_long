@@ -1,6 +1,6 @@
 NAME = so_long
-CFLAGS = -I headers -Wall -Wextra #-Werror
-CPPFLAGS= -I libft/src -I minilibx-linux/ # -I : include
+CFLAGS = -g3 -Wall -Wextra #-Werror
+CPPFLAGS= -I headers -I libft/headers -I minilibx-linux/ # -I : include
 CC = cc
 OBJ_PATH = obj/
 OBJS = $(addprefix $(OBJ_PATH), $(OBJ))
@@ -11,7 +11,8 @@ SRC =	main.c \
 		moove.c \
 		pre_parsing.c \
 		free.c \
-		control_map.c
+		control_map.c \
+		control_map_s.c
 
 OBJ = $(SRC:.c=.o)
 
