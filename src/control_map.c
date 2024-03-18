@@ -6,7 +6,7 @@
 /*   By: tcoze <tcoze@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 16:44:42 by tcoze             #+#    #+#             */
-/*   Updated: 2024/03/18 00:21:28 by tcoze            ###   ########.fr       */
+/*   Updated: 2024/03/18 16:21:18 by tcoze            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,15 @@ int	control_ecp(t_data *data, char ecp)
 
 int	flood_map(char **map, int x, int y)
 {
-	if (map[x][y] == 'X' || map[x][y] == '1' )
+	if (map[x][y] == 'X' || map[x][y] == '1')
 		return (0);
-	map[x][y] = 'X';
+	if (map[x][y] == 'E')
+	{
+		map[x][y] = '1';
+		return (0);
+	}
+	else
+		map[x][y] = 'X';
 	flood_map(map, x + 1, y);
 	flood_map(map, x - 1, y);
 	flood_map(map, x, y + 1);
@@ -95,19 +101,26 @@ int	flood_map(char **map, int x, int y)
 int	control_map(t_data *data)
 {
 	if (control_ecp(data, 'E') == -1)
-		return (ft_freedouble(data->map, data->ctrl_map), -1);
+		return (ft_printf(2, "Exit != 1\n"), \
+			ft_freedouble(data->map, data->ctrl_map), -1);
 	if (control_ecp(data, 'C') == -1)
-		return (ft_freedouble(data->map, data->ctrl_map), -1);
+		return (ft_printf(2, "Collectibles < 1 or unattainable\n"), \
+			ft_freedouble(data->map, data->ctrl_map), -1);
 	if (control_ecp(data, 'P') == -1)
-		return (ft_freedouble(data->map, data->ctrl_map), -1);
+		return (ft_printf(2, "Player != 1\n"), \
+			ft_freedouble(data->map, data->ctrl_map), -1);
 	if (control_line(data->map) == -1)
-		return (ft_freedouble(data->map, data->ctrl_map), -1);
+		return (ft_printf(2, "Map is not a rectangle\n"), \
+			ft_freedouble(data->map, data->ctrl_map), -1);
 	if (control_wall(data) == -1)
-		return (ft_freedouble(data->map, data->ctrl_map), -1);
+		return (ft_printf(2, "Need walls around map\n"), \
+			ft_freedouble(data->map, data->ctrl_map), -1);
 	if (control_carac(data) == -1)
-		return (ft_freedouble(data->map, data->ctrl_map), -1);
+		return (ft_printf(2, "Map = 1 or 0 or E or C or P\n"), \
+			ft_freedouble(data->map, data->ctrl_map), -1);
 	flood_map(data->ctrl_map, data->pos_px, data->pos_py);
 	if (control_pec(data) == -1)
-		return (ft_freedouble(data->map, data->ctrl_map), -1);
+		return (ft_printf(2, "Error map\n"), \
+			ft_freedouble(data->map, data->ctrl_map), -1);
 	return (ft_freeall(data->ctrl_map, ft_count_path(data->map)), 0);
 }

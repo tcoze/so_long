@@ -6,7 +6,7 @@
 /*   By: tcoze <tcoze@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 08:41:42 by tcoze             #+#    #+#             */
-/*   Updated: 2024/03/18 00:14:34 by tcoze            ###   ########.fr       */
+/*   Updated: 2024/03/18 15:47:45 by tcoze            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ static void	ft_initiate(t_data *data)
 	data->pos_px = 0;
 	data->pos_py = 0;
 	data->collect = 0;
+	data->collectible = NULL;
+	data->fence1 = NULL;
+	data->fence2 = NULL;
+	data->ground = NULL;
+	data->player = NULL;
+	data->exit = NULL;
 }
 
 int	main(int argc, char *argv[])

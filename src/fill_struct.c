@@ -6,7 +6,7 @@
 /*   By: tcoze <tcoze@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 16:54:23 by tcoze             #+#    #+#             */
-/*   Updated: 2024/03/18 00:01:46 by tcoze            ###   ########.fr       */
+/*   Updated: 2024/03/18 16:14:14 by tcoze            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,89 +27,62 @@ int	file_to_image(t_data *data)
 	data->exit = mlx_xpm_file_to_image(data->mlx_ptr, data->exit_path, \
 			&data->width, &data->height);
 	if (data->exit == NULL)
-		return (-1);
+		return (exit_end_game(data));
 	data->collectible = mlx_xpm_file_to_image(data->mlx_ptr, \
 			data->collectible_path, &data->width, &data->height);
 	if (data->collectible == NULL)
-		return (-1);
+		return (exit_end_game(data));
 	data->fence1 = mlx_xpm_file_to_image(data->mlx_ptr, data->fence1_path, \
 			&data->width, &data->height);
 	if (data->fence1 == NULL)
-		return (-1);
+		return (exit_end_game(data));
 	data->fence2 = mlx_xpm_file_to_image(data->mlx_ptr, data->fence2_path, \
 				&data->width, &data->height);
 	if (data->fence2 == NULL)
-		return (-1);
+		return (exit_end_game(data));
 	data->ground = mlx_xpm_file_to_image(data->mlx_ptr, data->ground_path, \
 				&data->width, &data->height);
 	if (data->ground == NULL)
-		return (-1);
+		return (exit_end_game(data));
 	data->player = mlx_xpm_file_to_image(data->mlx_ptr, data->player_path, \
 				&data->width, &data->height);
 	if (data->player == NULL)
-		return (-1);
+		return (exit_end_game(data));
 	return (0);
 }
 
-int	file_to_window(t_data *data)
+static void	fill_ind(t_ind *ind)
 {
-	int	i;
-	int	n;
-	int	x;
-	int	y;
+	ind->x = 0;
+	ind->y = 0;
+	ind->i = 0;
+}
 
-	i = 0;
-	x = 0;
-	y = 0;
-	while (data->map[i])
+void	file_to_window(t_data *data)
+{
+	t_ind	ind;
+
+	fill_ind(&ind);
+	while (data->map[ind.i])
 	{
-		n = 0;
-		while (data->map[i][n] != '\n' && data->map[i][n] != '\0')
+		ind.n = 0;
+		while (data->map[ind.i][ind.n] != '\n' \
+			&& data->map[ind.i][ind.n] != '\0')
 		{
-			if (data->map[i][n] == '1')
-			{
-				if (n == 0 || data->map[i][n + 1] == '\n' ||
-					data->map[i][n + 1] == '\0')
-					mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, \
-						data->fence1, y, x);
-				else
-					mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, \
-						data->fence2, y, x);
-				y = y + 126;
-			}
-			else if (data->map[i][n] == '0')
-			{
-				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, \
-					data->ground, y, x);
-				y = y + 126;
-			}
-			else if (data->map[i][n] == 'C')
-			{
-				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, \
-					data->collectible, y, x);
-				y = y + 126;
-			}
-			else if (data->map[i][n] == 'E')
-			{
-				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, \
-					data->exit, y, x);
-				y = y + 126;
-			}
-			else if (data->map[i][n] == 'P')
-			{
-				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, \
-					data->player, y, x);
-				data->pos_x = x;
-				data->pos_y = y;
-				data->pos_px = n;
-				data->pos_py = i;
-				y = y + 126;
-			}
-			n++;
+			if (data->map[ind.i][ind.n] == '1')
+				case_one(data, &ind);
+			else if (data->map[ind.i][ind.n] == '0')
+				case_o(data, &ind);
+			else if (data->map[ind.i][ind.n] == 'C')
+				case_c(data, &ind);
+			else if (data->map[ind.i][ind.n] == 'E')
+				case_e(data, &ind);
+			else if (data->map[ind.i][ind.n] == 'P')
+				case_p(data, &ind);
+			ind.n++;
 		}
-		i++;
-		x = x + 126;
-		y = 0;
+		ind.i++;
+		ind.x = ind.x + 126;
+		ind.y = 0;
 	}
-	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tcoze <tcoze@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 08:41:27 by tcoze             #+#    #+#             */
-/*   Updated: 2024/03/18 00:11:16 by tcoze            ###   ########.fr       */
+/*   Updated: 2024/03/18 16:14:37 by tcoze            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,17 @@ typedef struct s_data
 	int		moove;
 }	t_data;
 
+typedef struct s_ind
+{
+	int	i;
+	int	y;
+	int	n;
+	int	x;
+}	t_ind;
+
 int 	file_to_image(t_data *data);
-void    store_textures(t_data *data);
-int		file_to_window(t_data *data);
+void	store_textures(t_data *data);
+void	file_to_window(t_data *data);
 int 	player_moove(int key, t_data *data);
 int		count_collec(t_data *data);
 int		ft_check_argc(int argc, char **argv, t_data *data);
@@ -75,5 +83,10 @@ int		control_ecp(t_data *data, char ecp);
 int		flood_map(char **map, int x, int y);
 void	ft_freedouble(char **map1, char **map2);
 int		exit_end_game(t_data *data);
+void	case_e(t_data *data, t_ind *ind);
+void	case_one(t_data *data, t_ind *ind);
+void	case_p(t_data *data, t_ind *ind);
+void	case_o(t_data *data, t_ind *ind);
+void	case_c(t_data *data, t_ind *ind);
 
 #endif
